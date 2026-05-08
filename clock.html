@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Clock - Heure Mondiale</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 3em;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(76, 175, 80, 0.5), 2px 2px 8px rgba(0, 0, 0, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(76, 175, 80, 0.8), 2px 2px 8px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        .clocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .clock-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .clock-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.3);
+            border-color: rgba(76, 175, 80, 0.5);
+        }
+
+        .flag {
+            font-size: 3em;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: wave 0.5s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(10deg);
+            }
+            75% {
+                transform: rotate(-10deg);
+            }
+        }
+
+        .city-name {
+            color: #4caf50;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .time {
+            color: #fff;
+            font-size: 2.5em;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 3px;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .timezone {
+            color: #b0bec5;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .back-link a {
+            color: #4caf50;
+            text-decoration: none;
+            font-size: 1.1em;
+            padding: 12px 30px;
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .back-link a:hover {
+            background: rgba(76, 175, 80, 0.4);
+            transform: scale(1.05);
+        }
+
+        .info {
+            text-align: center;
+            color: #b0bec5;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 World Clock</h1>
+        
+        <div class="clocks-grid" id="clocksGrid"></div>
+
+        <div class="info">
+            ⏰ L'heure se met à jour en temps réel chaque seconde
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">📚 Retour aux Flashcards</a>
+        </div>
+    </div>
+
+    <script>
+        const cities = [
+            { name: 'New York', timezone: 'America/New_York', flag: '🗽' },
+            { name: 'Londres', timezone: 'Europe/London', flag: '🇬🇧' },
+            { name: 'Paris', timezone: 'Europe/Paris', flag: '🇫🇷' },
+            { name: 'Tokyo', timezone: 'Asia/Tokyo', flag: '🇯🇵' },
+            { name: 'Sydney', timezone: 'Australia/Sydney', flag: '🇦🇺' },
+            { name: 'Dubaï', timezone: 'Asia/Dubai', flag: '🇦🇪' },
+            { name: 'Singapour', timezone: 'Asia/Singapore', flag: '🇸🇬' },
+            { name: 'Hong Kong', timezone: 'Asia/Hong_Kong', flag: '🇭🇰' },
+            { name: 'São Paulo', timezone: 'America/Sao_Paulo', flag: '🇧🇷' },
+            { name: 'Moscou', timezone: 'Europe/Moscow', flag: '🇷🇺' },
+            { name: 'Bangkok', timezone: 'Asia/Bangkok', flag: '🇹🇭' },
+            { name: 'Los Angeles', timezone: 'America/Los_Angeles', flag: '🌴' }
+        ];
+
+        function createClocks() {
+            const grid = document.getElementById('clocksGrid');
+            cities.forEach(city => {
+                const card = document.createElement('div');
+                card.className = 'clock-card';
+                card.innerHTML = `
+                    <div class="flag">${city.flag}</div>
+                    <div class="city-name">${city.name}</div>
+                    <div class="time" id="time-${city.name}">--:--:--</div>
+                    <div class="timezone">${city.timezone}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function updateClocks() {
+            cities.forEach(city => {
+                const now = new Date().toLocaleString('fr-FR', {
+                    timeZone: city.timezone,
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                document.getElementById(`time-${city.name}`).textContent = now;
+            });
+        }
+
+        // Initialiser les horloges
+        createClocks();
+        updateClocks();
+
+        // Mettre à jour chaque seconde
+        setInterval(updateClocks, 1000);
+    </script>
+</body>
+</html>
