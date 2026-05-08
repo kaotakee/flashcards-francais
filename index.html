@@ -133,6 +133,26 @@
             margin-top: 20px;
             font-size: 0.9em;
         }
+
+        .clock-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .clock-link a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 10px 20px;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+
+        .clock-link a:hover {
+            background: rgba(212, 175, 55, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -149,12 +169,16 @@
         <div class="navigation">
             <button id="prevBtn" onclick="previousCard()">← Précédent</button>
             <div class="counter">
-                <span id="current">1</span> / <span id="total">4</span>
+                <span id="current">1</span> / <span id="total">16</span>
             </div>
             <button id="nextBtn" onclick="nextCard()">Suivant →</button>
         </div>
 
         <div class="hint">💡 Clique sur la carte pour voir la réponse</div>
+
+        <div class="clock-link">
+            <a href="clock.html">🌍 World Clock</a>
+        </div>
     </div>
 
     <script>
@@ -174,6 +198,102 @@
             {
                 recto: "Dire moins pour faire comprendre plus. Exemple: \"ce n'est pas mauvais\"",
                 verso: "Une litote"
+            },
+            {
+                recto: "Qu'est-ce qu'une anaphore ?",
+                verso: "Répétition d'un mot/groupe de mots en début de phrase ou vers"
+            },
+            {
+                recto: "Répétition d'un mot/groupe de mots en début de phrase ou vers",
+                verso: "Une anaphore"
+            },
+            {
+                recto: "Le classicisme ?",
+                verso: "XVIIe siècle. Recherche de l'ordre, de la raison et des règles (auteur comme Molière)"
+            },
+            {
+                recto: "XVIIe siècle. Recherche de l'ordre, de la raison et des règles (auteur comme Molière)",
+                verso: "Le classicisme"
+            },
+            {
+                recto: "Le naturalisme ?",
+                verso: "Un mouvement littéraire qui s'attache à peindre la réalité en s'appuyant sur un travail minutieux (auteur comme émile zola)"
+            },
+            {
+                recto: "Un mouvement littéraire qui s'attache à peindre la réalité en s'appuyant sur un travail minutieux (auteur comme émile zola)",
+                verso: "Le naturalisme"
+            },
+            {
+                recto: "Le surréalisme ?",
+                verso: "Un mouvement littéraire et artistique qui repose sur le refus de toutes les constructions logiques de l'esprit et sur les valeurs de l'irrationnel, de l'absurde, du rêve, du désir et de la révolte (auteur comme louis aragon)"
+            },
+            {
+                recto: "Un mouvement littéraire et artistique qui repose sur le refus de toutes les constructions logiques de l'esprit et sur les valeurs de l'irrationnel, de l'absurde, du rêve, du désir et de la révolte (auteur comme louis aragon)",
+                verso: "Le surréalisme"
+            },
+            {
+                recto: "Les Lumières ?",
+                verso: "Le mouvement des Lumières est un courant intellectuel et littéraire du XVIIIe siècle qui met en avant la raison, la science et la liberté (auteur comme : voltaire , rousseau , montesquieu)"
+            },
+            {
+                recto: "Le mouvement des Lumières est un courant intellectuel et littéraire du XVIIIe siècle qui met en avant la raison, la science et la liberté (auteur comme : voltaire , rousseau , montesquieu)",
+                verso: "Les Lumières"
+            },
+            {
+                recto: "Victor Hugo ?",
+                verso: "Auteur romantique du XIXe siècle. Défend les pauvres et la liberté. Œuvres : Les Misérables, Notre-Dame de Paris."
+            },
+            {
+                recto: "Auteur romantique du XIXe siècle. Défend les pauvres et la liberté. Œuvres : Les Misérables, Notre-Dame de Paris.",
+                verso: "Victor Hugo"
+            },
+            {
+                recto: "Baudelaire ?",
+                verso: "Poète du symbolisme. Thèmes : spleen, beauté, modernité. Œuvre : Les Fleurs du mal."
+            },
+            {
+                recto: "Poète du symbolisme. Thèmes : spleen, beauté, modernité. Œuvre : Les Fleurs du mal.",
+                verso: "Baudelaire"
+            },
+            {
+                recto: "Albert Camus ?",
+                verso: "Écrivain de l'absurde. Thèmes : liberté, sens de la vie. Œuvre : L'Étranger."
+            },
+            {
+                recto: "Écrivain de l'absurde. Thèmes : liberté, sens de la vie. Œuvre : L'Étranger.",
+                verso: "Albert Camus"
+            },
+            {
+                recto: "Registre satirique ?",
+                verso: "Critique par le rire et la moquerie"
+            },
+            {
+                recto: "Critique par le rire et la moquerie",
+                verso: "Registre satirique"
+            },
+            {
+                recto: "Registre polémique ?",
+                verso: "défendre une opinion en critiquant fortement une autre idée ou personne"
+            },
+            {
+                recto: "défendre une opinion en critiquant fortement une autre idée ou personne",
+                verso: "Registre polémique"
+            },
+            {
+                recto: "Registre didactique",
+                verso: "Il cherche à instruire, expliquer ou transmettre un savoir"
+            },
+            {
+                recto: "Il cherche à instruire, expliquer ou transmettre un savoir",
+                verso: "Registre didactique"
+            },
+            {
+                recto: "Registre épique ?",
+                verso: "Il met en scène des actions héroïques et impressionnantes (grandes batailles, exploits)"
+            },
+            {
+                recto: "Il met en scène des actions héroïques et impressionnantes (grandes batailles, exploits)",
+                verso: "Registre épique"
             }
         ];
 
